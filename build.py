@@ -80,32 +80,32 @@ def update(conf, download):
         drugbank.parse_drugbank()
         chembl.parse_chembl()
 
-    uniprot_signatures.parse()  # requires proteins to be parsed first
-    hpo.parse()  # requires disorders to be parsed first
-    reactome.parse()  # requires protein to be parsed first
-    bioontology.parse()  # requires phenotype to be parsed
+    ##uniprot_signatures.parse()  # requires proteins to be parsed first
+    ##hpo.parse()  # requires disorders to be parsed first
+    ##reactome.parse()  # requires protein to be parsed first
+    ##bioontology.parse()  # requires phenotype to be parsed
 
     # Sources that add data to existing nodes
-    drug_central.parse_drug_central()
-    unichem.parse()
-    repotrial.parse()
+    ##drug_central.parse_drug_central()
+    ##unichem.parse()
+    ##repotrial.parse()
 
     # Sources adding edges.
-    biogrid.parse_ppis()
-    ctd.parse()
-    disgenet.parse_gene_disease_associations()
-    go.parse_goa()
-    hpa.parse_hpa()
-    iid.parse_ppis()
-    intact.parse()
+    ##biogrid.parse_ppis()
+    ##ctd.parse()
+    ##disgenet.parse_gene_disease_associations()
+    ##go.parse_goa()
+    ##hpa.parse_hpa()
+    ##iid.parse_ppis()
+    ##intact.parse()
 
-    if version == "licensed":
-        omim.parse_gene_disease_associations()
+    ##if version == "licensed":
+    ##    omim.parse_gene_disease_associations()
 
-    sider.parse()
-    uniprot.parse_idmap()
+    ##sider.parse()
+    ##uniprot.parse_idmap()
 
-    from nedrexdb.analyses import molecule_similarity
+    ##from nedrexdb.analyses import molecule_similarity
 
     molecule_similarity.run()
 
