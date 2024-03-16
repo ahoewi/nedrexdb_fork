@@ -38,13 +38,17 @@ class UniProtRecord:
         "CD_antigen=",
         "INN=",
     ]
+
+    # ~ saves and sorts alle combinations of features (regex patterns) in _CATEGORY_FIELDS with _SUBCATEGORY_FIELDS
     _COMBINED_FIELDS = sorted(
         (" ".join(i) for i in _itertools.product(_CATEGORY_FIELDS, _SUBCATEGORY_FIELDS)),
         key=lambda i: len(i),
         reverse=True,
     )
+    # raw strings of _COMBINED_FIELDS as regex patterns -> parsing every possible order of feature information
     _COMBINATION_REGEX = _re.compile(r"|".join(_COMBINED_FIELDS))
 
+    # uses Bio.SeqRecord -> trembl / swissprot information probably in .annotations (or dbxrefs)
     def __init__(self, record: _SeqRecord.SeqRecord):
         self._record = record
 
@@ -88,6 +92,10 @@ class UniProtRecord:
     def get_comments(self) -> str:
         return self._record.annotations.get("comment", "")
 
+    # TODO: review_status is not the right key.
+    def get_review_status(self) -> str:
+        return self._record.annotations.get(~"review_status", "")
+
     def parse(self):
         p = Protein()
 
@@ -101,6 +109,8 @@ class UniProtRecord:
 
         p.taxid = self.get_taxid()
         p.sequence = self.get_sequence()
+
+        # p.whatever = self.get_review_status()
 
         p.dataSources = ["uniprot"]
 
